@@ -1,1 +1,13 @@
 .idea
+__pycache__/
+venv/
+.venv
+env/
+.env
+bin
+lib
+include
+
+db.sqlite3
+.sqlite3
+
