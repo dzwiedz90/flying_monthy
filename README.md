@@ -8,6 +8,7 @@ Members:
 - Adam Rogacewicz
 - Mateusz Kluska
 - Rafał Osowski
+- Arkadiusz Tomalczyk
 
 ----------------
 ----------------
@@ -18,6 +19,8 @@ Main Features:
 - admin / moderator account
 - comments (adding, editing)
 - moderate contents by admin / moderator
+- user can delete his meme
+- users can delete their comments
 - statistics / ratings for memes (+  -)
 - user profile that shows what memes he posted
 - creating accounts
@@ -31,6 +34,11 @@ Extra Features:
 - gif memes
 - forgotten password restore
 - censorship of profanities  
+- watermark on pictures
+- avatar
+- side bar top users
+- sprawdzenie hasla pod wzgledem zlozonosci(8 liter duza malalitera cyfra znak specjalny)
+- sortowanie komentarzy i zagniezdzone komentarze
 
 ----------------  
 ----------------
@@ -49,9 +57,9 @@ User module
 - user must have:
     - nickname
     - password
-    - avatar
+    - OPTIONAL avatar
     - email
-    - list of friends (empty at initialization)
+    - OPTIONAL list of friends (empty at initialization)
     - account creation date
     - name
     - surname
@@ -91,3 +99,10 @@ Categories module
 Frontend
 - 
 - content to create (not implemented yet
+
+
+----------
+##Ma być zrobione w formie:
+- Django templatki
+- obok zrobione pełne restowe api (do pobrania samym jsonem)
+- Dwa widoki dwa urle
