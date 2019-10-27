@@ -121,5 +121,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# my_project/settings.py
+# it allows to return to main page after login !
 LOGIN_REDIRECT_URL = '/'
