@@ -78,31 +78,26 @@ Memes module
         - statistics / ratings (+, -)
         - owner (foreign key in database)  
 
-Comments module
--
-- content to create (not implemented yet)
-
-Adding memes module
--
-- content to create (not implemented yet 
-
-Statistics / rating module
--
-- content to create (not implemented yet
-
-Categories module
--
-- content to create (not implemented yet
-
-----------------  
-----------------
-Frontend
-- 
-- content to create (not implemented yet
-
-
 ----------
 ##Ma być zrobione w formie:
 - Django templatki
 - obok zrobione pełne restowe api (do pobrania samym jsonem)
 - Dwa widoki dwa urle
+
+-------------
+##Użyte technologie:
+- Python 3.6
+- Django 2.2
+- Django bootstrap 11.0.0
+- Django rest framework 3.10..3
+- Django filter 2.2.0
+- baza danych na sqlite3 (prawdopodobnie w póśniejszym etapie przejdziemy na postgresa)  
+
+##Konfiguracja przed pierwszym uruchomieniem
+- konfiguracja środowiska wirtualnego w pythonie
+    - virtualenv nazwa_srodowiska
+    - instalacja modulow z requirements.txt (pip3 install -r requirements.txt)
+- pobranie mastera z repo
+- dokonanie migracji w django(python3 manage.py makemigrations, python3 manage.py migrate)
+- wymigowanie static filesow (python3 manage.py collectstatic)
+- uruchomienie serweraa django (python3 manage.py runserver)
