@@ -79,13 +79,15 @@ Memes module
         - owner (foreign key in database)  
 
 ----------
-##Ma być zrobione w formie:
+Ma być zrobione w formie:
+- 
 - Django templatki
 - obok zrobione pełne restowe api (do pobrania samym jsonem)
 - Dwa widoki dwa urle
 
 -------------
-##Użyte technologie:
+Użyte technologie:
+- 
 - Python 3.6
 - Django 2.2
 - Django bootstrap 11.0.0
@@ -93,7 +95,8 @@ Memes module
 - Django filter 2.2.0
 - baza danych na sqlite3 (prawdopodobnie w póśniejszym etapie przejdziemy na postgresa)  
 
-##Konfiguracja przed pierwszym uruchomieniem
+Konfiguracja przed pierwszym uruchomieniem
+- 
 - konfiguracja środowiska wirtualnego w pythonie
     - virtualenv nazwa_srodowiska
     - instalacja modulow z requirements.txt (pip3 install -r requirements.txt)
