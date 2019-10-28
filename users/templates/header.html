@@ -1,28 +1,13 @@
-<!DOCTYPE HTML>
-    
-<html lang="pl">
-    
-    
-<head>
-    <!--{% include 'head.html' %}-->
-    <link rel="stylesheet" href="style.css" type="text/css"/>
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
-</head>
-
-<body>
-    <div id="header">
-        <div id="header_logo">
-            <img src="logo.png" alt="Logo of Flying Monthy web page"> 
-        </div>
-        <div id="menu">
-                <a href="index.html" class="menu_link_left">GŁÓWNA</a>
-                <a href="top.html" class="menu_link_left">TOP 10</a>
-                <a href="add.html" class="menu_link_left">WRZUĆ</a>
-                <a href="login.html" class="menu_link_right">LOGOWANIE</a>
-                <a href="register.html" class="menu_link_right">ZAREJESTRUJ</a> 
-        </div>
+<div id="header">
+    <div id="header_logo">
+        {% load static %}
+        <img src="{% static 'img/logo_menu.png' %}" alt="Logo of Flying Monthy web page"> 
     </div>
-
-</body>
-
-</html>
+    <div id="menu">
+            <a href="index.html" class="menu_link_left">GŁÓWNA</a>
+            <a href="top.html" class="menu_link_left">TOP 10</a>
+            <a href="add.html" class="menu_link_left">WRZUĆ</a>
+            <a href="login.html" class="menu_link_right">LOGOWANIE</a>
+            <a href="register.html" class="menu_link_right">ZAREJESTRUJ</a> 
+    </div>
+</div>
