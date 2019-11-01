@@ -10,6 +10,26 @@ Members:
 - Rafał Osowski
 - Arkadiusz Tomalczyk
 
+-------------
+Technologies used:
+- 
+- Python 3.6
+- Django 2.2
+- Django bootstrap 11.0.0
+- Django rest framework 3.10..3
+- Django filter 2.2.0
+- Dtabase on sqlite3 (later will probably be changed on postgresa)  
+
+Configuration before first run:
+- 
+- configurue virtual environment in Python:
+    - virtualenv environment_name
+    - install modules from requirements.txt (pip3 install -r requirements.txt)
+- download master from repo
+- django migrations(python3 manage.py makemigrations, python3 manage.py migrate)
+- migrate static files(python3 manage.py collectstatic)
+- run django server(python3 manage.py runserver)
+
 ----------------
 ----------------
 Main Features:  
@@ -37,8 +57,8 @@ Extra Features:
 - watermark on pictures
 - avatar
 - side bar top users
-- sprawdzenie hasla pod wzgledem zlozonosci(8 liter duza malalitera cyfra znak specjalny)
-- sortowanie komentarzy i zagniezdzone komentarze
+- check password for complexity(8 letters, capital and lower  case letters, number, special characters)
+- sorting comments and  and nested comments
 
 ----------------  
 ----------------
@@ -49,7 +69,7 @@ Registration / logging module
 -
 - register account
 - registration form
-- logging into webpage
+- logging into web page
 
 
 User module  
@@ -78,31 +98,9 @@ Memes module
         - statistics / ratings (+, -)
         - owner (foreign key in database)  
 
-Comments module
--
-- content to create (not implemented yet)
-
-Adding memes module
--
-- content to create (not implemented yet 
-
-Statistics / rating module
--
-- content to create (not implemented yet
-
-Categories module
--
-- content to create (not implemented yet
-
-----------------  
-----------------
-Frontend
-- 
-- content to create (not implemented yet
-
-
 ----------
-##Ma być zrobione w formie:
-- Django templatki
-- obok zrobione pełne restowe api (do pobrania samym jsonem)
-- Dwa widoki dwa urle
+Form of project:
+- 
+- Django templates
+- full rest api endpoints (to download with json and test with postman)
+- two views for urls
