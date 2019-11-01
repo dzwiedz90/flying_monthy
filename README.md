@@ -10,6 +10,26 @@ Members:
 - Rafał Osowski
 - Arkadiusz Tomalczyk
 
+-------------
+Technologies used:
+- 
+- Python 3.6
+- Django 2.2
+- Django bootstrap 11.0.0
+- Django rest framework 3.10..3
+- Django filter 2.2.0
+- Dtabase on sqlite3 (later will probably be changed on postgresa)  
+
+Configuration before first run:
+- 
+- configurue virtual environment in Python:
+    - virtualenv environment_name
+    - install modules from requirements.txt (pip3 install -r requirements.txt)
+- download master from repo
+- django migrations(python3 manage.py makemigrations, python3 manage.py migrate)
+- migrate static files(python3 manage.py collectstatic)
+- run django server(python3 manage.py runserver)
+
 ----------------
 ----------------
 Main Features:  
@@ -49,7 +69,7 @@ Registration / logging module
 -
 - register account
 - registration form
-- logging into webpage
+- logging into web page
 
 
 User module  
@@ -84,23 +104,3 @@ Form of project:
 - Django templates
 - full rest api endpoints (to download with json and test with postman)
 - two views for urls
-
--------------
-Technologies used:
-- 
-- Python 3.6
-- Django 2.2
-- Django bootstrap 11.0.0
-- Django rest framework 3.10..3
-- Django filter 2.2.0
-- Dtabase on sqlite3 (later will probably be changed on postgresa)  
-
-Configuration before first run:
-- 
-- configurue virtual environment in Python:
-    - virtualenv environment_name
-    - install modules from requirements.txt (pip3 install -r requirements.txt)
-- download master from repo
-- django migrations(python3 manage.py makemigrations, python3 manage.py migrate)
-- migrate static files(python3 manage.py collectstatic)
-- run django server(python3 manage.py runserver)
