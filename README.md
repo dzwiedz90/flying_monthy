@@ -37,8 +37,8 @@ Extra Features:
 - watermark on pictures
 - avatar
 - side bar top users
-- sprawdzenie hasla pod wzgledem zlozonosci(8 liter duza malalitera cyfra znak specjalny)
-- sortowanie komentarzy i zagniezdzone komentarze
+- check password for complexity(8 letters, capital and lower  case letters, number, special characters)
+- sorting comments and  and nested comments
 
 ----------------  
 ----------------
@@ -79,28 +79,28 @@ Memes module
         - owner (foreign key in database)  
 
 ----------
-Ma być zrobione w formie:
+Form of project:
 - 
-- Django templatki
-- obok zrobione pełne restowe api (do pobrania samym jsonem)
-- Dwa widoki dwa urle
+- Django templates
+- full rest api endpoints (to download with json and test with postman)
+- two views for urls
 
 -------------
-Użyte technologie:
+Technologies used:
 - 
 - Python 3.6
 - Django 2.2
 - Django bootstrap 11.0.0
 - Django rest framework 3.10..3
 - Django filter 2.2.0
-- baza danych na sqlite3 (prawdopodobnie w póśniejszym etapie przejdziemy na postgresa)  
+- Dtabase on sqlite3 (later will probably be changed on postgresa)  
 
-Konfiguracja przed pierwszym uruchomieniem
+Configuration before first run:
 - 
-- konfiguracja środowiska wirtualnego w pythonie
-    - virtualenv nazwa_srodowiska
-    - instalacja modulow z requirements.txt (pip3 install -r requirements.txt)
-- pobranie mastera z repo
-- dokonanie migracji w django(python3 manage.py makemigrations, python3 manage.py migrate)
-- wymigowanie static filesow (python3 manage.py collectstatic)
-- uruchomienie serweraa django (python3 manage.py runserver)
+- configurue virtual environment in Python:
+    - virtualenv environment_name
+    - install modules from requirements.txt (pip3 install -r requirements.txt)
+- download master from repo
+- django migrations(python3 manage.py makemigrations, python3 manage.py migrate)
+- migrate static files(python3 manage.py collectstatic)
+- run django server(python3 manage.py runserver)
