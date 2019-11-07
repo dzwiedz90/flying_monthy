@@ -1,1 +1,10 @@
-<div id="content" style="text-align: center; font-size: 45px;"></br></br></br></br></br></br>TUTAJ BEDĄ MEMY</div>
+<div id="user_created" style="text-align: right; font-size: 15px; margin-right: 25px;"></br>
+        {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+</div>
+<div id="content" style="text-align: center; font-size: 45px;">
+    </br></br></br></br></br></br>TUTAJ BEDĄ MEMY
+</div>
