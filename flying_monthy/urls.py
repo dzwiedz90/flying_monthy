@@ -19,9 +19,13 @@ from django.urls import path, include
 from users.views import main_page_view, register
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', main_page_view),
+    # REST FRAMEWORK URLS
+    path('api/users/', include('users.api.urls', 'users_api')),
     path('register/', register, name='register'),
-    path('', main_page_view)
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
