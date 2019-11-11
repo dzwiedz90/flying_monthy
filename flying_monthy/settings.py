@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'memes.apps.MemesConfig',
     'rest_framework',
     'rest_framework.authtoken'
 ]

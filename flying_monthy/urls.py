@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', main_page_view),
+    path('', main_page_view, name='home'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
     path('register/', register, name='register'),
