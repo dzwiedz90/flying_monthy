@@ -25,8 +25,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', main_page_view),
     # REST FRAMEWORK URLS
-    path('api/users/', include('users.api.urls', 'users_api'))
+    path('api/users/', include('users.api.urls', 'users_api')),
     path('register/', register, name='register'),
-    path('', main_page_view)
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
