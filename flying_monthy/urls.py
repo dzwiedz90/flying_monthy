@@ -26,7 +26,6 @@ urlpatterns = [
     path('', main_page_view, name='home'),
     path('register/', register, name='register'),
     path('logout/', logout, name='logout'),
-
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
 
