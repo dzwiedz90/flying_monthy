@@ -27,5 +27,6 @@ urlpatterns = [
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
     path('register/', register, name='register'),
+    # REST users
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
