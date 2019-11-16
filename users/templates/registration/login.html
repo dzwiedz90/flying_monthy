@@ -7,7 +7,13 @@
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login !</button>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+      <div class="register_redirect">
+        <small>
+            Nie posiadasz jeszcze konta? <a href="{% url 'register' %}">Zarejestruj się</a>
+        </small>
+      </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br>
 </form>
+
 {% endblock %}
