@@ -1,9 +1,12 @@
+from django.http import Http404
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework.views import APIView
 
-from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer
+from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
 
 
 # create user
@@ -34,7 +37,35 @@ def get_all_users(request):
         return Response({"user": serializer.data})
 
 
-@api_view(['PUT', ])
-def update_user(request):
-    if request.method == 'PUT':
+# @api_view(['PUT', ])
+# def update_user(request):
+#     if request.method == 'PUT':
+#         serializer = UpdateUserSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class UpdateUser(APIView):
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UpdateUserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response('User modified', status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        if request.method == 'DELETE':
+            try:
+                user = User.objects.get(pk=pk)
+                user.delete()
+                return Response('User deleted', status=status.HTTP_204_NO_CONTENT)
+            except User.DoesNotExist:
+                return Response('User not found', status=status.HTTP_404_NOT_FOUND)
