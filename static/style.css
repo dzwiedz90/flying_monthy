@@ -82,10 +82,3 @@ body
 	font-size: 16px;
     font-family: 'Ubuntu Condensed';
 }
-table {
-  table-layout: fixed ;
-  width: 100% ;
-}
-td {
-  width: 25% ;
-}

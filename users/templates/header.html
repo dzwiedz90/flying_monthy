@@ -6,7 +6,7 @@
     <div id="menu">
             <a href="{% url 'home' %}" class="menu_link_left">GŁÓWNA</a>
             <a href="top.html" class="menu_link_left">TOP 10</a>
-            <a href="add.html" class="menu_link_left">WRZUĆ</a>
+            <a href="{% url 'add' %}" class="menu_link_left">WRZUĆ</a>
             <a href="{% url 'login' %}" class="menu_link_right">LOGOWANIE</a>
             <a href="{% url 'register' %}" class="menu_link_right">ZAREJESTRUJ</a>
     </div>

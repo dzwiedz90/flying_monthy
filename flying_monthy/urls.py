@@ -25,11 +25,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', main_page_view, name='home'),
+    path('add/', CreateMemeView.as_view(), name='post'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
     path('register/', register, name='register'),
-    path('post/', CreateMemeView.as_view(), name='add_post'),
+
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-if settings.DEBUG: # new
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
