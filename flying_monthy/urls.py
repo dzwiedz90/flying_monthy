@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from users.views import main_page_view, register
+from users.views import main_page_view, register, logout
 from django.conf.urls.static import static
 
 
@@ -24,8 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', main_page_view, name='home'),
+    path('register/', register, name='register'),
+    path('logout/', logout, name='logout'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
-    path('register/', register, name='register'),
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
