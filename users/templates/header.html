@@ -12,9 +12,17 @@
             <a href="#" class="menu_link_right">Zalogowano jako {{ user.username }}</a>
             <a href="{% url 'logout' %}" class="menu_link_right">WYLOGUJ</a>
             <a href="{% url 'profile' %}" class="menu_link_right">PROFIL</a>
+                {% if user.is_superuser %}
+                    <a href="#" class="menu_link_right">Zalogowano jako {{ user.username }}</a>
+                    <a href="{% url 'logout' %}" class="menu_link_right">WYLOGUJ</a>
+                    <a href="{% url 'users_list' %}" class="menu_link_right">LISTA UŻYTKOWNIKÓW</a>
+                {% else %}
+                    <a href="#" class="menu_link_right">Zalogowano jako {{ user.username }}</a>
+                    <a href="{% url 'logout' %}" class="menu_link_right">WYLOGUJ</a>
+                {% endif %}
             {% else %}
-            <a href="{% url 'login' %}" class="menu_link_right">LOGOWANIE</a>
-            <a href="{% url 'register' %}" class="menu_link_right">ZAREJESTRUJ</a>
+                <a href="{% url 'login' %}" class="menu_link_right">LOGOWANIE</a>
+                <a href="{% url 'register' %}" class="menu_link_right">ZAREJESTRUJ</a>
             {% endif %}
     </div>
 </div>
