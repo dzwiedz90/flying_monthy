@@ -9,6 +9,9 @@
             <a href="add.html" class="menu_link_left">WRZUĆ</a>
 
             {% if user.is_authenticated %}
+            <a href="#" class="menu_link_right">Zalogowano jako {{ user.username }}</a>
+            <a href="{% url 'logout' %}" class="menu_link_right">WYLOGUJ</a>
+            <a href="{% url 'profile' %}" class="menu_link_right">PROFIL</a>
                 {% if user.is_superuser %}
                     <a href="#" class="menu_link_right">Zalogowano jako {{ user.username }}</a>
                     <a href="{% url 'logout' %}" class="menu_link_right">WYLOGUJ</a>

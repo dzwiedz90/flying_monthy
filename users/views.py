@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from posts.models import Post
-
-
 
 # Create your views here.
 
@@ -62,3 +61,8 @@ def change_user_status(request, pk):
         return redirect("/users_list")
     messages.success(request, f"Użytkownik {username} został wylogowany.")
     return redirect('/')
+
+
+@login_required()
+def profile(request):
+    return render(request, 'profile.html')
