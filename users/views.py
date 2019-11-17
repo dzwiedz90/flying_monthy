@@ -4,6 +4,7 @@ from .forms import UserRegisterForm
 
 # Create your views here.
 
+
 def main_page_view(request):
     return render(request, "index.html", {})
 
@@ -20,6 +21,9 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form': form})
 
+
 def logout(request):
+    username = request.user.username
     auth.logout(request)
-    return redirect('/logout')
+    messages.success(request, f"Użytkownik {username} został wylogowany.")
+    return redirect('/')
