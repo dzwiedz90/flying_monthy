@@ -41,7 +41,7 @@ def users_list(request):
             if search_value.lower() in str(user).lower():
                 all.append(user)
         users_list = all
-        
+
     elif search_by == 'role':
         if search_value.lower() in "administrator":
             users_list = users_list.filter(is_superuser=True)
