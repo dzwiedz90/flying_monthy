@@ -6,6 +6,7 @@ from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
 from .forms import PostForm
 
+
 class List(ListView):
     model = Post
     template_name = 'list.html'

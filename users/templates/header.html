@@ -6,16 +6,12 @@
     <div id="menu">
             <a href="{% url 'home' %}" class="menu_link_left">GŁÓWNA</a>
             <a href="top.html" class="menu_link_left">TOP 10</a>
-<<<<<<< HEAD
-            <a href="{% url 'add' %}" class="menu_link_left">WRZUĆ</a>
-=======
             <a href="add.html" class="menu_link_left">WRZUĆ</a>
 
             {% if user.is_authenticated %}
             <a href="#" class="menu_link_right">Zalogowano jako {{ user.username }}</a>
             <a href="{% url 'logout' %}" class="menu_link_right">WYLOGUJ</a>
             {% else %}
->>>>>>> a7873d88dc066b52ae9a842f0dd7b45cc5920fd0
             <a href="{% url 'login' %}" class="menu_link_right">LOGOWANIE</a>
             <a href="{% url 'register' %}" class="menu_link_right">ZAREJESTRUJ</a>
             {% endif %}
