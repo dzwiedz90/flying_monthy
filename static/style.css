@@ -77,3 +77,22 @@ body
 	font-size: 25px;
     font-family: 'Ubuntu Condensed';
 }
+
+
+.users_title
+{
+    text-align: center;
+}
+
+.users_list
+{
+    text-align: center;
+}
+
+.table1
+{
+    margin: 0px auto;
+    width:50%
+}
+
+

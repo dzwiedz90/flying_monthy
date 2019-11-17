@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from .forms import UserRegisterForm
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -20,6 +22,35 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form': form})
 
+
 def logout(request):
     auth.logout(request)
-    return redirect('/logout')
+    return redirect('/')
+
+
+def users_list(request):
+    users = User.objects.all()
+    return render(request, 'users_list.html', {'users': users})
+
+# request_data.get('new_role') -> 'Użytkownik'
+def change_user_status(request, pk):
+
+    if request.method == "POST":
+        data = request.POST
+        user = User.objects.get(pk=pk)
+        role = data.get('new_role')
+        # import ipdb;
+        # ipdb.set_trace()
+        # polecenia do użycia w konsoli aby sprawdzić co się dzieje pod do import ipdb
+        # c -continue
+        # n - new line
+        # s - step (wejdz do środka funkcji)
+        if role == 'administrator':
+            user.is_superuser = True
+        elif role == 'moderator':
+            user.is_staff = True
+        elif role == 'uzytkownik':
+            user.is_superuser = False
+            user.is_staff = False
+        user.save()
+        return redirect("/users_list")
