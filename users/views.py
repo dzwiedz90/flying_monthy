@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from .forms import UserRegisterForm
+from posts.models import Post
+
 
 # Create your views here.
 
 
 def main_page_view(request):
-    return render(request, "index.html", {})
+    object_list = Post.objects.all()
+    return render(request, "index.html", {'object_list': object_list})
 
 
 def register(request):
@@ -15,7 +18,8 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Konto zostało założone dla {username}!')
+            messages.success(request,
+                             f'Konto zostało założone dla {username}!')
             return redirect('/')
     else:
         form = UserRegisterForm()

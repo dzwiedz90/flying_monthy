@@ -66,14 +66,19 @@ body
 
 #content
 {
-	height: 700px;
+    padding:10px;
+    height: 700px;
+    padding-bottom:80px;
 }
 
 #footer
 {
-	height: 40px;
+	position: fixed;
+	height: 30px;
+    bottom: 0;
+    width: 100%;
 	background-color: #3c3c3c;
 	text-align: center;
-	font-size: 25px;
+	font-size: 16px;
     font-family: 'Ubuntu Condensed';
 }
