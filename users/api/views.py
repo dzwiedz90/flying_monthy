@@ -54,18 +54,26 @@ class UpdateUser(APIView):
             raise Http404
 
     def put(self, request, pk, format=None):
+        request_user = request.user
         user = self.get_object(pk)
         serializer = UpdateUserSerializer(user, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response('User modified', status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request_user.id == user.id:
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'message': 'User modified'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'You cant change another users data'}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         if request.method == 'DELETE':
             try:
+                request_user = request.user
                 user = User.objects.get(pk=pk)
-                user.delete()
-                return Response('User deleted', status=status.HTTP_204_NO_CONTENT)
+                if request_user.id == user.id:
+                    user.delete()
+                    return Response('User deleted', status=status.HTTP_204_NO_CONTENT)
+                else:
+                    return Response({'message': 'You cant delete another user'},
+                                    status=status.HTTP_400_BAD_REQUEST)
             except User.DoesNotExist:
                 return Response('User not found', status=status.HTTP_404_NOT_FOUND)
