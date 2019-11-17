@@ -1,14 +1,17 @@
+from django.http import Http404
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
-from users.api.serializers import RegistrationSerializer
+from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework.views import APIView
+from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
 from rest_framework import status
 
 
+# create user
 @api_view(['POST', ])
 def registration_view(request):
-
     if request.method == 'POST':
         serializer = RegistrationSerializer(data=request.data)
         data = {}
@@ -19,6 +22,48 @@ def registration_view(request):
             data['email'] = user.email
             token = Token.objects.get(user=user).key
             data['token'] = token
-        return Response(data, status=status.HTTP_201_CREATED)
+        else:
+            data = serializer.errors
+        return Response(data)
 
 
+# get all users data
+@api_view(['GET', ])
+def get_all_users(request):
+    if request.method == 'GET':
+        serializer = GetAllUsersSerializer(data=request.data)
+        users = User.objects.all()
+        serializer = GetAllUsersSerializer(users, many=True)
+        return Response({"user": serializer.data})
+
+class UpdateUser(APIView):
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        request_user = request.user
+        user = self.get_object(pk)
+        serializer = UpdateUserSerializer(user, data=request.data)
+        if request_user.id == user.id:
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'message': 'User modified'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'You cant change another users data'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        if request.method == 'DELETE':
+            try:
+                request_user = request.user
+                user = User.objects.get(pk=pk)
+                if request_user.id == user.id:
+                    user.delete()
+                    return Response('User deleted', status=status.HTTP_204_NO_CONTENT)
+                else:
+                    return Response({'message': 'You cant delete another user'},
+                                    status=status.HTTP_400_BAD_REQUEST)
+            except User.DoesNotExist:
+                return Response('User not found', status=status.HTTP_404_NOT_FOUND)
