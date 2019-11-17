@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="users_title">
+    <h2>Lista wszystkich użytkowników i ich uprawnienia</h2>
+</div>
+
+<div class="users_list">
+    {% if user.is_superuser %}
+
+     <table class="table1">
+        <tr>
+            <th>Użytkownik</th>
+            <th>Obecne uprawnienia</th>
+            <th>Nadaj uprawnienia</th>
+            <th></th>
+        </tr>
+
+        {% for member in users %}
+        <tr>
+            <form action="{% url 'change_status' member.pk %}" method="POST">
+                <td class="td">
+                    {{ member.username }}
+                </td>
+
+                <td class="td">
+                    {% if member.is_superuser %}
+                    Administrator
+                    {% elif member.is_staff%}
+                    Moderator
+                    {% else %}
+                    Użytkownik
+                    {% endif %}
+                </td>
+
+                <td class="td">
+                    {% if member.is_superuser %}
+                    <select>
+                        <option>Administrator</option>
+                    </select>
+                    {% else %}
+                        <select id="new_role" name="new_role">
+                        {% if member.is_superuser %}
+                            <option value="uzytkownik">Użytkownik</option>
+                            <option value="moderator">Moderator</option>
+                            <option value="administrator" selected>Administrator</option>
+                        {% elif member.is_staff%}
+                            <option value="uzytkownik">Użytkownik</option>
+                            <option value="moderator" selected>Moderator</option>
+                            <option value="administrator">Administrator</option>
+                        {% else %}
+                            <option value="uzytkownik">Użytkownik</option>
+                            <option value="administrator">Administrator</option>
+                            <option value="moderator">Moderator</option>
+                        {% endif %}
+                        </select>
+                    {% endif %}
+                </td>
+
+                <td class="td">
+                {% csrf_token %}
+                <button type="submit">Zapisz zmiany</button>
+                </td>
+
+            </form>
+
+        {% endfor %}
+        </tr>
+     </table>
+    <br>
+
+    <br>
+
+    {% else%}
+        <h3>Tylko administrator może zobaczyć listę użytkowników</h3>
+            <div>
+        <small>
+            Jesteś administratorem <a href="{% url 'login' %}">Zaloguj się</a>
+        </small>
+    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

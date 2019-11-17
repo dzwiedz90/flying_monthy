@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-
 from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
+from rest_framework import status
 
 
 # create user
@@ -15,7 +15,7 @@ def registration_view(request):
     if request.method == 'POST':
         serializer = RegistrationSerializer(data=request.data)
         data = {}
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             user = serializer.save()
             data['response'] = 'successfully registered a new user'
             data['username'] = user.username
@@ -35,16 +35,6 @@ def get_all_users(request):
         users = User.objects.all()
         serializer = GetAllUsersSerializer(users, many=True)
         return Response({"user": serializer.data})
-
-
-# @api_view(['PUT', ])
-# def update_user(request):
-#     if request.method == 'PUT':
-#         serializer = UpdateUserSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UpdateUser(APIView):
     def get_object(self, pk):
