@@ -26,13 +26,11 @@ urlpatterns = [
     path('', main_page_view, name='home'),
     path('register/', register, name='register'),
     path('logout/', logout, name='logout'),
-
     path('users_list/', users_list, name='users_list'),
     path('change_status/<int:pk>/', change_user_status, name='change_status'),
-
-
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
 
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 
