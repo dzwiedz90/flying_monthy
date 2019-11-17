@@ -26,12 +26,11 @@ urlpatterns = [
     path('', main_page_view, name='home'),
     path('register/', register, name='register'),
     path('logout/', logout, name='logout'),
-<<<<<<< HEAD
+
     path('users_list/', users_list, name='users_list'),
     path('change_status/<int:pk>/', change_user_status, name='change_status'),
 
-=======
->>>>>>> a7873d88dc066b52ae9a842f0dd7b45cc5920fd0
+
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
 
