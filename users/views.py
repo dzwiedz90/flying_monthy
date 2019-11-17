@@ -6,6 +6,7 @@ from posts.models import Post
 
 # Create your views here.
 
+
 def main_page_view(request):
     object_list = Post.objects.all()
     return render(request, "index.html", {'object_list': object_list})
@@ -26,5 +27,7 @@ def register(request):
 
 
 def logout(request):
+    username = request.user.username
     auth.logout(request)
+    messages.success(request, f"Użytkownik {username} został wylogowany.")
     return redirect('/')
