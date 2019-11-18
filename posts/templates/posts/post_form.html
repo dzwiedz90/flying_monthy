@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h1>Stwórz nowego mema!</h1>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Stwórz !</button>
+  </form>
+
+{% endblock content %}
+
+
+
+<!--<div class="adding_title">-->
+<!--    <h2>Dodaj mema</h2>-->
+<!--</div>-->
+<!--<div class="adding">-->
+<!--    <form action="{% url 'add' %}" method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {{ form.as_p }}-->
+<!--        <button type="submit">Add new !</button>-->
+
+<!--    </form>-->
+<!--</div>-->

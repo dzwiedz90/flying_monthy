@@ -30,12 +30,14 @@ def register(request):
 def logout(request):
     username = request.user.username
     auth.logout(request)
+    messages.success(request, f"Wylogowano użytkownika {username}")
     return redirect('/')
 
 
 def users_list(request):
     users = User.objects.all()
     return render(request, 'users_list.html', {'users': users})
+
 
 # request_data.get('new_role') -> 'Użytkownik'
 def change_user_status(request, pk):
@@ -59,8 +61,8 @@ def change_user_status(request, pk):
             user.is_staff = False
         user.save()
         return redirect("/users_list")
-    messages.success(request, f"Użytkownik {username} został wylogowany.")
-    return redirect('/')
+    # messages.success(request, f"Użytkownik {username} został wylogowany.")
+    # return redirect('/')
 
 
 @login_required()
