@@ -16,9 +16,9 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from users.views import main_page_view, register, logout, users_list, change_user_status
+from users.views import main_page_view, register, logout, profile, users_list, change_user_status
+from posts.views import CreateMemeView
 from django.conf.urls.static import static
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,9 +28,12 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('users_list/', users_list, name='users_list'),
     path('change_status/<int:pk>/', change_user_status, name='change_status'),
+    path('profile/', profile, name='profile'),
+    # path('add/', CreateMemeView.as_view(), name='post'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
-
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
+    path('register/', register, name='register'),
+    path('logout/', logout, name='logout'),
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

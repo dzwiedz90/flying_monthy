@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from posts.models import Post
 
 # Create your views here.
 
+
 def main_page_view(request):
-    return render(request, "index.html", {})
+    object_list = Post.objects.all()
+    return render(request, "index.html", {'object_list': object_list})
 
 
 def register(request):
@@ -18,7 +20,8 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Konto zostało założone dla {username}!')
+            messages.success(request,
+                             f'Konto zostało założone dla {username}!')
             return redirect('/')
     else:
         form = UserRegisterForm()
@@ -26,6 +29,7 @@ def register(request):
 
 
 def logout(request):
+    username = request.user.username
     auth.logout(request)
     return redirect('/')
 
@@ -76,3 +80,10 @@ def change_user_status(request, pk):
             user.is_staff = False
         user.save()
         return redirect("/users_list")
+    messages.success(request, f"Użytkownik {username} został wylogowany.")
+    return redirect('/')
+
+
+@login_required()
+def profile(request):
+    return render(request, 'profile.html')
