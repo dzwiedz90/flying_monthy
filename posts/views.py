@@ -5,6 +5,7 @@ from .models import Post
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
 from .forms import PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class List(ListView):
@@ -12,8 +13,12 @@ class List(ListView):
     template_name = 'list.html'
 
 
-class CreateMemeView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    form_class = PostForm
-    template_name = 'post.html'
+    fields = ['title', 'category', 'cover']
     success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+

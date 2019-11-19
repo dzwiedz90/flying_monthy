@@ -31,6 +31,7 @@ def register(request):
 def logout(request):
     username = request.user.username
     auth.logout(request)
+    messages.success(request, f"Wylogowano użytkownika {username}")
     return redirect('/')
 
 
@@ -80,8 +81,8 @@ def change_user_status(request, pk):
             user.is_staff = False
         user.save()
         return redirect("/users_list")
-    messages.success(request, f"Użytkownik {username} został wylogowany.")
-    return redirect('/')
+    # messages.success(request, f"Użytkownik {username} został wylogowany.")
+    # return redirect('/')
 
 
 @login_required()

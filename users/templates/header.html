@@ -4,9 +4,14 @@
         <img src="{% static 'img/logo_menu.png' %}" alt="Logo of Flying Monthy web page"> 
     </div>
     <div id="menu">
+            {% if user.is_authenticated %}
             <a href="{% url 'home' %}" class="menu_link_left">GŁÓWNA</a>
             <a href="top.html" class="menu_link_left">TOP 10</a>
-            <a href="add.html" class="menu_link_left">WRZUĆ</a>
+            <a href="{% url 'post-create' %}" class="menu_link_left">WRZUĆ</a>
+            {% else %}
+            <a href="{% url 'home' %}" class="menu_link_left">GŁÓWNA</a>
+            <a href="top.html" class="menu_link_left">TOP 10</a>
+            {% endif %}
             {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" class="menu_link_right">WYLOGUJ</a>
             <a href="{% url 'profile' %}" class="menu_link_right">{{ user.username }}</a>
