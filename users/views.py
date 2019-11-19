@@ -3,6 +3,7 @@ from django.contrib import messages, auth
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from posts.models import Post
 
 # Create your views here.
@@ -34,22 +35,42 @@ def logout(request):
 
 
 def users_list(request):
-    users = User.objects.all()
+    users_list = User.objects.all()
+    data = request.POST
+    search_by = data.get('search_by')
+    search_value = data.get('search')
+    if search_by == 'user':
+        all = []
+        for user in users_list:
+            if search_value.lower() in str(user).lower():
+                all.append(user)
+        users_list = all
+
+    elif search_by == 'role':
+        if search_value.lower() in "administrator":
+            users_list = users_list.filter(is_superuser=True)
+        elif search_value.lower() in "moderator":
+            users_list = users_list.filter(is_staff=True, is_superuser=False)
+        elif search_value.lower() in "użytkownik" or search_value.lower() in "uzytkownik":
+            users_list = users_list.filter(is_staff=False, is_superuser=False)
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(users_list, 10)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
     return render(request, 'users_list.html', {'users': users})
 
-# request_data.get('new_role') -> 'Użytkownik'
-def change_user_status(request, pk):
 
+def change_user_status(request, pk):
     if request.method == "POST":
         data = request.POST
         user = User.objects.get(pk=pk)
         role = data.get('new_role')
-        # import ipdb;
-        # ipdb.set_trace()
-        # polecenia do użycia w konsoli aby sprawdzić co się dzieje pod do import ipdb
-        # c -continue
-        # n - new line
-        # s - step (wejdz do środka funkcji)
         if role == 'administrator':
             user.is_superuser = True
         elif role == 'moderator':
