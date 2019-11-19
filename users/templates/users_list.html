@@ -7,6 +7,21 @@
 
 <div class="users_list">
     {% if user.is_superuser %}
+    <form action="" method="POST">
+        <label for="search">
+        <input id="search" type="search" name="search">
+        </label>
+
+        <select id="search_by" name="search_by">
+        <option value="user">Użytkownik</option>
+        <option value="role">Obecne uprawnienia</option>
+        </select>
+
+        {% csrf_token %}
+        <button type="submit">Wyszukaj</button>
+
+        <br><br><br><br>
+    </form>
 
      <table class="table1">
         <tr>
@@ -68,6 +83,29 @@
         </tr>
      </table>
     <br>
+    {% if users.has_other_pages %}
+        <div class="pagination">
+            {% if users.has_previous %}
+              <a href="?page={{ users.previous_page_number }}">&laquo;</a>
+            {% else %}
+              <span class="hidden"><span>&laquo;</span></span>
+            {% endif %}
+
+            {% for i in users.paginator.page_range %}
+              {% if users.number == i %}
+                <span class="active"><span>{{ i }} <span class="sr-only"></span></span></span>
+              {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+              {% endif %}
+            {% endfor %}
+
+            {% if users.has_next %}
+              <a href="?page={{ users.next_page_number }}">&raquo;</a>
+            {% else %}
+              <span class="hidden">&raquo;</span>
+            {% endif %}
+      </div>
+    {% endif %}
 
     <br>
 

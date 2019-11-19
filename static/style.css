@@ -98,3 +98,15 @@ body
     margin: 0px auto;
     width:50%
 }
+
+.pagination
+{
+    margin: 0px auto;
+    width:100%
+
+}
+
+.hidden
+{
+    display: none;
+}

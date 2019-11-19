@@ -31,13 +31,9 @@ urlpatterns = [
     path('users_list/', users_list, name='users_list'),
     path('change_status/<int:pk>/', change_user_status, name='change_status'),
     path('post/new', PostCreateView.as_view(), name='post-create'),
-
+    # path('add/', CreateMemeView.as_view(), name='post'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
-    path('register/', register, name='register'),
-    path('logout/', logout, name='logout'),
-
-
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
