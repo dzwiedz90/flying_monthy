@@ -1,12 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
-from .forms import UserRegisterForm
-from django.contrib.auth.models import User
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.models import User
+from .forms import UserRegisterForm
 
-
-# Create your views here.
 
 def main_page_view(request):
     return render(request, "index.html", {})
@@ -29,7 +27,7 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-
+@login_required(login_url='/accounts/login/')
 def users_list(request):
     users_list = User.objects.all()
     data = request.POST
