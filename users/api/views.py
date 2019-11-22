@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
-from rest_framework import status
 
 
 # create user
