@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div id="content" style="text-align: center; font-size: 20px;">
+        <h2>{{ object.title }}</h2>
+        <h3>{{ object.author }}</h3>
+        <h4>{{ object.category}}, Creation date: {{ object.created_on}}</h4>
+        <img width="400" src="{{ object.cover.url }}" alt="{{ post.title }}">
+    </div>
+
+{% endblock content %}
