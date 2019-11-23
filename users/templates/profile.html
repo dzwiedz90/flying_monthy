@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<div id="content">
 <!-- templates/registration/login.html -->
-    <h1>Profil użytownika {{ user.username }}:</h1>
-    <h2>{{ user.username }}</h2>
-    <h2>{{ user.email }}</h2>
+<h1>Profil użytownika {{ user.username }}:</h1>
+<h2>{{ user.username }}</h2>
+<h2>{{ user.email }}</h2>
 
 
 <h3>Lista memów użytkownika: {{ user.username }}</h3>
 
 <ul>
-  {% for post in object_list %}
+    {% for post in memes %}
     <h2>{{ post.title }}</h2>
     <h3>{{ post.author }}</h3>
     <h4>{{ post.category}}, Creation date: {{ post.created_on}}</h4>
@@ -18,4 +20,34 @@
     {% endfor %}
 </ul>
 
+<br>
+
+{% if memes.has_other_pages %}
+<div class="pagination">
+    {% if memes.has_previous %}
+    <a href="?page={{ memes.previous_page_number }}">&laquo;</a>
+    {% else %}
+    <span class="hidden"><span>&laquo;</span></span>
+    {% endif %}
+
+    {% for i in memes.paginator.page_range %}
+    {% if memes.number == i %}
+    <span class="active"><span>{{ i }} <span class="sr-only"></span></span></span>
+    {% else %}
+    <a href="?page={{ i }}">{{ i }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if memes.has_next %}
+    <a href="?page={{ memes.next_page_number }}">&raquo;</a>
+    {% else %}
+    <span class="hidden">&raquo;</span>
+    {% endif %}
+</div>
+<br><br><br>
+{% endif %}
+
+<br>
+
+</div>
 {% endblock %}

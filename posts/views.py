@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import render
 
 # Create your views here.
@@ -6,6 +7,7 @@ from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class List(ListView):
@@ -22,3 +24,5 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+def post_view():
+    pass
