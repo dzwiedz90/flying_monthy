@@ -5,10 +5,21 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from posts.models import Post
 from .forms import UserRegisterForm
+from django.conf import settings
+
 
 def main_page_view(request):
     object_list = Post.objects.all()
-    return render(request, "index.html", {'object_list': object_list})
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(object_list, settings.PAGINATION_SIZE)
+    try:
+        memes = paginator.page(page)
+    except PageNotAnInteger:
+        memes = paginator.page(1)
+    except EmptyPage:
+        memes = paginator.page(paginator.num_pages)
+    return render(request, "index.html", {'memes': memes})
 
 
 def register(request):
@@ -54,7 +65,7 @@ def users_list(request):
             users_list = users_list.filter(is_staff=False, is_superuser=False)
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(users_list, 10)
+    paginator = Paginator(users_list, settings.PAGINATION_SIZE)
     try:
         users = paginator.page(page)
     except PageNotAnInteger:
@@ -86,4 +97,13 @@ def change_user_status(request, pk):
 @login_required()
 def profile(request):
     object_list = Post.objects.filter(author=request.user.id)
-    return render(request, 'profile.html', {'object_list': object_list})
+    page = request.GET.get('page', 1)
+    paginator = Paginator(object_list, settings.PAGINATION_SIZE)
+    try:
+        memes = paginator.page(page)
+    except PageNotAnInteger:
+        memes = paginator.page(1)
+    except EmptyPage:
+        memes = paginator.page(paginator.num_pages)
+
+    return render(request, "profile.html", {'memes': memes})
