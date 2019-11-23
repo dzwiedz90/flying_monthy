@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 from users.views import main_page_view, register, logout, profile, users_list, \
     change_user_status
+from users.api.views import user_profile_rest
 from posts.views import PostCreateView
 from posts.views import MemeRestApi, GetMemesOfUser
 
@@ -38,6 +39,7 @@ urlpatterns = [
     path('api/users/', include('users.api.urls', 'users_api')),
     path('post/api/memes/', MemeRestApi.as_view(), name='post/api/memes/'),
     path('post/api/user_memes/', GetMemesOfUser.as_view(), name='user_memes'),
+    path('api/users/user_profile', user_profile_rest, name='user_profile'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

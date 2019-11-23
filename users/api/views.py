@@ -5,7 +5,10 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
+
+from posts.models import Post
+from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer, GetUsersSerializer
+from posts.serializers import GetAllMemesSerializer
 
 
 # create user
@@ -34,6 +37,16 @@ def get_all_users(request):
         users = User.objects.all()
         serializer = GetAllUsersSerializer(users, many=True)
         return Response({"user": serializer.data})
+
+@api_view(['GET'])
+def user_profile_rest(request):
+    if request.method == 'GET':
+        user = GetUsersSerializer(request.user)
+
+        memes = Post.objects.filter(author=request.user.id)
+        serializer = GetAllMemesSerializer(memes, many=True)
+
+        return Response({'user': user.data, 'memes': serializer.data}, status=status.HTTP_200_OK)
 
 class UpdateUser(APIView):
     def get_object(self, pk):
