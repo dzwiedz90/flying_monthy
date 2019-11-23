@@ -5,7 +5,8 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
+from users.api.serializers import RegistrationSerializer, \
+    GetAllUsersSerializer, UpdateUserSerializer
 
 
 # create user
@@ -34,6 +35,7 @@ def get_all_users(request):
         users = User.objects.all()
         serializer = GetAllUsersSerializer(users, many=True)
         return Response({"user": serializer.data})
+
 
 class UpdateUser(APIView):
     def get_object(self, pk):
