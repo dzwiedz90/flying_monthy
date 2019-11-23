@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
-from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from posts.models import Post
-
-# Create your views here.
-
+from .forms import UserRegisterForm
 
 def main_page_view(request):
     object_list = Post.objects.all()
@@ -35,6 +32,7 @@ def logout(request):
     return redirect('/')
 
 
+@login_required(login_url='/accounts/login/')
 def users_list(request):
     users_list = User.objects.all()
     data = request.POST
@@ -87,4 +85,5 @@ def change_user_status(request, pk):
 
 @login_required()
 def profile(request):
-    return render(request, 'profile.html')
+    object_list = Post.objects.filter(author=request.user.id)
+    return render(request, 'profile.html', {'object_list': object_list})
