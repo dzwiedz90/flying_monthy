@@ -16,7 +16,7 @@
     <h2>{{ post.title }}</h2>
     <h3>{{ post.author }}</h3>
     <h4>{{ post.category}}, Creation date: {{ post.created_on}}</h4>
-    <a><img width="500" src="{{ post.cover.url}}" alt="{{ post.title }}"></a>
+    <a href="{% url 'post-detail' post.id %}"><img width="500" src="{{ post.cover.url}}" alt="{{ post.title }}"></a>
     {% endfor %}
 </ul>
 
