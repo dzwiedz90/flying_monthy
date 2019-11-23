@@ -1,5 +1,26 @@
 {% block content %}
 <div>
+    <div class="search">
+        <p>Wyszukiwarka memów</p>
+    <form action="" method="POST">
+        <label for="search">
+        <input id="search" type="search" name="search">
+        </label>
+
+        <select id="search_by" name="search_by">
+        <option value="user_from_template">Użytkownik</option>
+        <option value="title_from_template">Tytuł</option>
+        <option value="category_from_template">Kategoria</option>
+        </select>
+
+        {% csrf_token %}
+        <button type="submit">Wyszukaj</button>
+
+        <br><br>
+    </form>
+    </div>
+
+
     <ul>
         {% for post in memes %}
         <h2>{{ post.title }}</h2>
