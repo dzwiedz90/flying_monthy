@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from users.views import main_page_view, register, logout, profile, users_list, \
     change_user_status
-from posts.views import PostCreateView, post_view
+from posts.views import PostCreateView
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -34,7 +34,7 @@ urlpatterns = [
     # path('add/', CreateMemeView.as_view(), name='post'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
-    path('post/<int:pk>/<str:title>', post_view, name='post_view'),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
