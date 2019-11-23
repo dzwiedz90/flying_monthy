@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.response import Response
@@ -12,6 +12,11 @@ from posts.serializers import GetAllMemesSerializer, CreateMemeSerializer, Updat
 class List(ListView):
     model = Post
     template_name = 'list.html'
+    ordering = ['-created_on']
+
+
+class PostDetailView(DetailView):
+    model = Post
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

@@ -22,6 +22,7 @@ from users.views import main_page_view, register, logout, profile, users_list, \
     change_user_status
 from posts.views import PostCreateView
 from posts.views import MemeRestApi, GetMemesOfUser
+from posts.views import PostDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,6 +35,7 @@ urlpatterns = [
     path('change_status/<int:pk>/', change_user_status, name='change_status'),
     path('post/new', PostCreateView.as_view(), name='post-create'),
     # path('add/', CreateMemeView.as_view(), name='post'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),
     path('post/api/memes/', MemeRestApi.as_view(), name='post/api/memes/'),

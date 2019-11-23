@@ -69,7 +69,10 @@ body
     padding:10px;
     height: 700px;
     padding-bottom:80px;
+    text_align:center;
+    font-size:20px;
 }
+
 
 #footer
 {
