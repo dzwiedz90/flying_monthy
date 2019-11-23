@@ -32,10 +32,13 @@ class MemeRestApi(APIView):
 
     def post(self, request):
         serializer = CreateMemeSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'message': 'Meme created'}, status=status.HTTP_201_CREATED)
-        return Response({'message': 'Cant add meme, wrong data'}, status=status.HTTP_400_BAD_REQUEST)
+        if request.user.id == int(request.data['author']):
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'message': 'Meme created'}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Cant add meme, wrong data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'message': 'You cant add meme as another user'}, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
         try:
