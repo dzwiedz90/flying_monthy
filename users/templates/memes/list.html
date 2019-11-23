@@ -1,0 +1,14 @@
+
+
+{% block content %}
+<ul>
+  {% for post in object_list %}
+    <h2>{{ post.title }}</h2>
+    <h3>{{ post.author }}</h3>
+    <h4>{{ post.category}}, Creation date: {{ post.created_on}}</h4>
+    <a><img width="610" src="{{ post.cover.url}}" alt="{{ post.title }}"></a>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+

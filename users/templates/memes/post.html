@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% if user.is_authenticated %}
+{% block content %}
+
+<div class="adding_title">
+    <h2>Dodaj mema</h2>
+</div>
+<div class="adding">
+    <form action="{% url 'add/new' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add new !</button>
+
+    </form>
+</div>
+{% endblock %}
+
