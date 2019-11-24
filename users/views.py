@@ -3,12 +3,46 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 from posts.models import Post
 from .forms import UserRegisterForm
 
+
 def main_page_view(request):
-    object_list = Post.objects.all()
-    return render(request, "index.html", {'object_list': object_list})
+    object_list = Post.objects.all().order_by('-created_on')
+
+    data = request.POST
+    search_by = data.get('search_by')
+    search_value = data.get('search')
+    all = []
+    if search_by == 'user_from_template':
+        for meme_user in object_list:
+
+            if search_value.lower() in str(meme_user.author).lower():
+                all.append(meme_user)
+        object_list = all
+
+    elif search_by == 'title_from_template':
+        for meme_title in object_list:
+            if search_value.lower() in str(meme_title.title).lower():
+                all.append(meme_title)
+        object_list = all
+
+    elif search_by == 'category_from_template':
+        for meme_category in object_list:
+            if search_value.lower() in str(meme_category.category).lower():
+                all.append(meme_category)
+        object_list = all
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(object_list, settings.PAGINATION_SIZE)
+    try:
+        memes = paginator.page(page)
+    except PageNotAnInteger:
+        memes = paginator.page(1)
+    except EmptyPage:
+        memes = paginator.page(paginator.num_pages)
+    return render(request, "index.html", {'memes': memes})
 
 
 def register(request):
@@ -54,7 +88,7 @@ def users_list(request):
             users_list = users_list.filter(is_staff=False, is_superuser=False)
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(users_list, 10)
+    paginator = Paginator(users_list, settings.PAGINATION_SIZE)
     try:
         users = paginator.page(page)
     except PageNotAnInteger:
@@ -86,4 +120,13 @@ def change_user_status(request, pk):
 @login_required()
 def profile(request):
     object_list = Post.objects.filter(author=request.user.id)
-    return render(request, 'profile.html', {'object_list': object_list})
+    page = request.GET.get('page', 1)
+    paginator = Paginator(object_list, settings.PAGINATION_SIZE)
+    try:
+        memes = paginator.page(page)
+    except PageNotAnInteger:
+        memes = paginator.page(1)
+    except EmptyPage:
+        memes = paginator.page(paginator.num_pages)
+
+    return render(request, "profile.html", {'memes': memes})

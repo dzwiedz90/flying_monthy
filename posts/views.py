@@ -1,6 +1,11 @@
-from django.views.generic import ListView, CreateView
+from django.http import request
+from django.shortcuts import render
+
+# Create your views here.
+from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -12,6 +17,10 @@ from posts.serializers import GetAllMemesSerializer, CreateMemeSerializer, Updat
 class List(ListView):
     model = Post
     template_name = 'list.html'
+
+
+class PostDetailView(DetailView):
+    model = Post
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
