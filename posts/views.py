@@ -57,7 +57,7 @@ class MemeRestApi(APIView):
             serializer = UpdateMemeSerializer(request_user, data=request.data)
             if request_user == post.author:
                 if serializer.is_valid():
-                    serializer.save()
+                    serializer.update()
                     return Response({'message': 'Meme modified'}, status=status.HTTP_200_OK)
             else:
                 return Response({'message': 'You cant change another users memes'}, status=status.HTTP_400_BAD_REQUEST)
