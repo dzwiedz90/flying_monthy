@@ -20,7 +20,8 @@ class CreateMemeSerializer(serializers.ModelSerializer):
         def save(self, instance, validated_data):
             instance.title = validated_data.get('title', instance.title)
             instance.cover = validated_data.get('file', instance.cover)
-            instance.category = validated_data.get('category', instance.category)
+            instance.category = validated_data.get('category',
+                                                   instance.category)
             instance.user = validated_data.get('author', instance.author)
             instance.save()
             return instance
@@ -34,7 +35,8 @@ class UpdateMemeSerializer(serializers.ModelSerializer):
         def update(self, user, instance, validated_data):
             instance.title = validated_data.get('title', instance.title)
             instance.cover = validated_data.get('file', instance.cover)
-            instance.category = validated_data.get('category', instance.category)
+            instance.category = validated_data.get('category',
+                                                   instance.category)
             instance.author = validated_data.get(user, instance.category)
             instance.save()
             return instance

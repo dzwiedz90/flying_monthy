@@ -5,15 +5,12 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-
 from posts.models import Post
-from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer, GetUsersSerializer
 from posts.serializers import GetAllMemesSerializer
-from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
+from users.api.serializers import RegistrationSerializer, \
+    GetAllUsersSerializer, UpdateUserSerializer, GetUsersSerializer
 
 
-
-# create user
 @api_view(['POST', ])
 def registration_view(request):
     if request.method == 'POST':
@@ -31,7 +28,7 @@ def registration_view(request):
         return Response(data)
 
 
-# get all users data
+
 @api_view(['GET', ])
 def get_all_users(request):
     if request.method == 'GET':
@@ -40,7 +37,7 @@ def get_all_users(request):
         serializer = GetAllUsersSerializer(users, many=True)
         return Response({"user": serializer.data})
 
-      
+
 @api_view(['GET'])
 def user_profile_rest(request):
     if request.method == 'GET':
@@ -49,8 +46,9 @@ def user_profile_rest(request):
         memes = Post.objects.filter(author=request.user.id)
         serializer = GetAllMemesSerializer(memes, many=True)
 
-        return Response({'user': user.data, 'memes': serializer.data}, status=status.HTTP_200_OK)
-      
+        return Response({'user': user.data, 'memes': serializer.data},
+                        status=status.HTTP_200_OK)
+
 
 class UpdateUser(APIView):
     def get_object(self, pk):
@@ -66,11 +64,14 @@ class UpdateUser(APIView):
         if request_user.id == user.id:
             if serializer.is_valid():
                 serializer.save()
-                return Response({'message': 'User modified'}, status=status.HTTP_200_OK)
+                return Response({'message': 'User modified'},
+                                status=status.HTTP_200_OK)
             else:
-                return Response({'message': 'Wrong data'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'message': 'Wrong data'},
+                                status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'message': 'You cant change another users data'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'You cant change another users data'},
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         if request.method == 'DELETE':
@@ -79,9 +80,12 @@ class UpdateUser(APIView):
                 user = User.objects.get(pk=pk)
                 if request_user.id == user.id:
                     user.delete()
-                    return Response('User deleted', status=status.HTTP_204_NO_CONTENT)
+                    return Response('User deleted',
+                                    status=status.HTTP_204_NO_CONTENT)
                 else:
-                    return Response({'message': 'You cant delete another user'},
-                                    status=status.HTTP_400_BAD_REQUEST)
+                    return Response(
+                        {'message': 'You cant delete another user'},
+                        status=status.HTTP_400_BAD_REQUEST)
             except User.DoesNotExist:
-                return Response('User not found', status=status.HTTP_404_NOT_FOUND)
+                return Response('User not found',
+                                status=status.HTTP_404_NOT_FOUND)
