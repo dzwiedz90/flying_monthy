@@ -1,0 +1,17 @@
+{% extends 'costamememe.html' %}
+
+{% block content %}
+
+<div>
+    <h2>Komentarze</h2>
+</div>
+
+<div>
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button type="submit">Dodaj</button>
+    </form>
+</div>
+
+{% endblock %}
