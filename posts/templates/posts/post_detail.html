@@ -7,6 +7,9 @@
         <img width="400" src="{{ object.cover.url }}" alt="{{ post.title }}">
 
         <div>
+            {% if next %}
+            <form action="/login/?next={{next}}" method="post" >
+            {%else%}
             <form action="{% url 'add_comment' object.id %}" method="POST">
                 Treść komentarza<br>
                 <label for="content">
@@ -20,6 +23,7 @@
             <br>
             <br>
         </div>
+        {% endif %}
 
         <hr>
         <p>Number of comments for this meme : {{post.comment.count}}</p>

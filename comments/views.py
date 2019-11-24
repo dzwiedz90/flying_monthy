@@ -75,10 +75,13 @@ class GetCommentsOfUser(APIView):
         return Response({'comments': serializer.data})
 
 
-@login_required()
+# @login_required()
 def add_comment(request, pk):
     if request.method == "POST":
-        data = request.POST
-        Comments.objects.create(content=data.get('content'), author=request.user, meme=Post.objects.get(pk=pk))
-
-    return redirect(request.environ['HTTP_REFERER'])
+        if request.user.username:
+            data = request.POST
+            if data['content']:
+                Comments.objects.create(content=data.get('content'), author=request.user, meme=Post.objects.get(pk=pk))
+                return redirect(request.environ['HTTP_REFERER'])
+        else:
+            return redirect(request.environ['HTTP_REFERER'])
