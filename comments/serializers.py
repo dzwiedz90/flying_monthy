@@ -26,7 +26,7 @@ class CreateCommentsSerializer(serializers.ModelSerializer):
 class UpdateCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = ['content', 'meme']
+        fields = ['content']
 
     def update(self, instance, validated_data):
         instance.content = validated_data.get('content', instance.content)
