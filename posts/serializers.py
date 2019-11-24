@@ -29,11 +29,12 @@ class CreateMemeSerializer(serializers.ModelSerializer):
 class UpdateMemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'cover', 'category', 'author']
+        fields = ['title', 'cover', 'category']
 
-        def update(self, instance, validated_data):
+        def update(self, user, instance, validated_data):
             instance.title = validated_data.get('title', instance.title)
             instance.cover = validated_data.get('file', instance.cover)
             instance.category = validated_data.get('category', instance.category)
+            instance.author = validated_data.get(user, instance.category)
             instance.save()
             return instance
