@@ -1,10 +1,13 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
 from comments.models import Comments
-from comments.serializers import GetAllCommentsSerializer, \
-    CreateCommentsSerializer, UpdateCommentSerializer
+from posts.models import Post
+from comments.serializers import GetAllCommentsSerializer, CreateCommentsSerializer, \
+    UpdateCommentSerializer
 
 
 class CommentRestApi(APIView):
@@ -70,3 +73,12 @@ class GetCommentsOfUser(APIView):
         comment = Comments.objects.filter(author=request.user.id)
         serializer = GetAllCommentsSerializer(comment, many=True)
         return Response({'comments': serializer.data})
+
+
+@login_required()
+def add_comment(request, pk):
+    if request.method == "POST":
+        data = request.POST
+        Comments.objects.create(content=data.get('content'), author=request.user, meme=Post.objects.get(pk=pk))
+
+    return redirect(request.environ['HTTP_REFERER'])
