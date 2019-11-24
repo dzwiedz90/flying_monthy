@@ -9,6 +9,8 @@ from rest_framework.views import APIView
 from posts.models import Post
 from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer, GetUsersSerializer
 from posts.serializers import GetAllMemesSerializer
+from users.api.serializers import RegistrationSerializer, GetAllUsersSerializer, UpdateUserSerializer
+
 
 
 # create user
@@ -38,6 +40,7 @@ def get_all_users(request):
         serializer = GetAllUsersSerializer(users, many=True)
         return Response({"user": serializer.data})
 
+      
 @api_view(['GET'])
 def user_profile_rest(request):
     if request.method == 'GET':
@@ -47,6 +50,7 @@ def user_profile_rest(request):
         serializer = GetAllMemesSerializer(memes, many=True)
 
         return Response({'user': user.data, 'memes': serializer.data}, status=status.HTTP_200_OK)
+      
 
 class UpdateUser(APIView):
     def get_object(self, pk):

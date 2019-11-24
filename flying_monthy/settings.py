@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'comments.apps.CommentsConfig'
 ]
 
 REST_FRAMEWORK = {
@@ -130,3 +131,4 @@ LOGIN_REDIRECT_URL = '/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+PAGINATION_SIZE = 5

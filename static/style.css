@@ -69,6 +69,8 @@ body
     padding:10px;
     height: 700px;
     padding-bottom:80px;
+    text-align: center;
+    font-size: 20px;
 }
 
 #footer
@@ -81,6 +83,7 @@ body
 	text-align: center;
 	font-size: 16px;
     font-family: 'Ubuntu Condensed';
+
 }
 
 .users_title
