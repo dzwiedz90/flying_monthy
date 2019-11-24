@@ -1,17 +1,13 @@
-from django.http import request
-from django.shortcuts import render
-
-# Create your views here.
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
 from posts.models import Post
-from posts.serializers import GetAllMemesSerializer, CreateMemeSerializer, UpdateMemeSerializer
+from posts.serializers import GetAllMemesSerializer, CreateMemeSerializer, \
+    UpdateMemeSerializer
 
 
 class List(ListView):
@@ -44,10 +40,13 @@ class MemeRestApi(APIView):
         if request.user.id == int(request.data['author']):
             if serializer.is_valid():
                 serializer.save()
-                return Response({'message': 'Meme created'}, status=status.HTTP_201_CREATED)
-            return Response({'message': 'Cant add meme, wrong data'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'message': 'Meme created'},
+                                status=status.HTTP_201_CREATED)
+            return Response({'message': 'Cant add meme, wrong data'},
+                            status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'message': 'You cant add meme as another user'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'You cant add meme as another user'},
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
         try:
@@ -58,9 +57,12 @@ class MemeRestApi(APIView):
             if request_user == post.author:
                 if serializer.is_valid():
                     serializer.update()
-                    return Response({'message': 'Meme modified'}, status=status.HTTP_200_OK)
+                    return Response({'message': 'Meme modified'},
+                                    status=status.HTTP_200_OK)
             else:
-                return Response({'message': 'You cant change another users memes'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {'message': 'You cant change another users memes'},
+                    status=status.HTTP_400_BAD_REQUEST)
         except Post.DoesNotExist:
             return Response('Meme not found', status=status.HTTP_404_NOT_FOUND)
 
@@ -71,10 +73,12 @@ class MemeRestApi(APIView):
             post = Post.objects.get(id=request_id)
             if request_user == post.author:
                 post.delete()
-                return Response('Meme deleted', status=status.HTTP_204_NO_CONTENT)
+                return Response('Meme deleted',
+                                status=status.HTTP_204_NO_CONTENT)
             else:
-                return Response({'message': 'You cant delete another user meme'},
-                                status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {'message': 'You cant delete another user meme'},
+                    status=status.HTTP_400_BAD_REQUEST)
         except Post.DoesNotExist:
             return Response('Meme not found', status=status.HTTP_404_NOT_FOUND)
 

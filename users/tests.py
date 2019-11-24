@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse, resolve
-from users.views import register, main_page_view, logout, users_list
 from django.contrib.auth.models import User
+from users.views import register, main_page_view, logout, users_list
 
 
 class TestUrls(SimpleTestCase):

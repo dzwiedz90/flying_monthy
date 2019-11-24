@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 
 from comments.models import Comments
-from comments.serializers import GetAllCommentsSerializer, CreateCommentsSerializer, \
-    UpdateCommentSerializer
+from comments.serializers import GetAllCommentsSerializer, \
+    CreateCommentsSerializer, UpdateCommentSerializer
 
 
 class CommentRestApi(APIView):
@@ -23,25 +23,29 @@ class CommentRestApi(APIView):
             return Response({'message': 'Cant add comment, wrong data'},
                             status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'message': 'You cant add comment as another user'},
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'message': 'You cant add comment as another user'},
+                status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
         try:
             request_id = request.data['id']
             request_user = request.user
             post = Comments.objects.get(id=request_id)
-            serializer = UpdateCommentSerializer(request_user, data=request.data)
+            serializer = UpdateCommentSerializer(request_user,
+                                                 data=request.data)
             if request_user == post.author:
                 if serializer.is_valid():
                     serializer.update(post, serializer.validated_data)
-                    return Response({'message': 'Comment modified'}, status=status.HTTP_200_OK)
+                    return Response({'message': 'Comment modified'},
+                                    status=status.HTTP_200_OK)
             else:
-                return Response({'message': "You can't change another users comments"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {'message': "You can't change another users comments"},
+                    status=status.HTTP_400_BAD_REQUEST)
         except Comments.DoesNotExist:
-            return Response('Comment not found', status=status.HTTP_404_NOT_FOUND)
-
-
+            return Response('Comment not found',
+                            status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request):
         try:
@@ -57,7 +61,8 @@ class CommentRestApi(APIView):
                     {'message': 'You cant delete another user comment'},
                     status=status.HTTP_400_BAD_REQUEST)
         except Comments.DoesNotExist:
-            return Response('Comment not found', status=status.HTTP_404_NOT_FOUND)
+            return Response('Comment not found',
+                            status=status.HTTP_404_NOT_FOUND)
 
 
 class GetCommentsOfUser(APIView):
@@ -65,4 +70,3 @@ class GetCommentsOfUser(APIView):
         comment = Comments.objects.filter(author=request.user.id)
         serializer = GetAllCommentsSerializer(comment, many=True)
         return Response({'comments': serializer.data})
-

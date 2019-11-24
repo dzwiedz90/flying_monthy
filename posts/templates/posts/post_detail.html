@@ -2,9 +2,36 @@
 {% block content %}
     <div id="content" style="text-align: center; font-size: 20px;">
         <h2>{{ object.title }}</h2>
-        <h3>{{ object.author }}</h3>
-        <h4>{{ object.category}}, Creation date: {{ object.created_on}}</h4>
+        <p>{{ object.author }}, {{ object.category}}, Creation date: {{ object.created_on}}</p>
+        <hr>
         <img width="400" src="{{ object.cover.url }}" alt="{{ post.title }}">
-    </div>
+        <hr>
+        <p>Number of comments for this meme : {{post.comment.count}}</p>
+        {% for comments in post.comment.all %}
+        <div class="comments" style="padding: 10px;">
+            <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+            .tg .tg-e7to{font-weight:bold;font-size:15px;font-family:Arial, Helvetica, sans-serif !important;;background-color:#a2a5f0;text-align:left;vertical-align:top}
+            .tg .tg-oqwd{font-size:12px;background-color:#cad8ff;text-align:left;vertical-align:top}
+            .tg .tg-drpq{font-size:13px;background-color:#cad8ff;text-align:left;vertical-align:top}
+            </style>
+            <table class="tg" align="center" style="width: 100%; max-width: 350px; table-layout: fixed;">
+              <tr>
+                <th class="tg-e7to">{{ comments.author }}</th>
+              </tr>
+              <tr>
+                <td class="tg-oqwd">{{ comments.created_on }}</td>
+              </tr>
+              <tr>
+                <td class="tg-drpq">{{ comments.content| linebreaks }}</td>
+              </tr>
+            </table>
+        </div>
+        {% empty %}
+            <p>No comments here yet </p>
+        {% endfor %}
 
+    </div>
 {% endblock content %}
