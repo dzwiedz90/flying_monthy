@@ -1,5 +1,6 @@
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
+
 from users.api.views import registration_view, get_all_users, UpdateUser
 
 app_name = 'users'

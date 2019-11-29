@@ -8,7 +8,11 @@ bin
 lib
 include
 media/images/
-
+media/
+.media/
+static/admin
+.static/admin
+.vscode
 db.sqlite3
 .sqlite3
 

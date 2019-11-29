@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+
 from users.views import main_page_view, register, logout, profile, users_list, \
     change_user_status
 from users.api.views import user_profile_rest
@@ -19,7 +20,6 @@ urlpatterns = [
     path('users_list/', users_list, name='users_list'),
     path('change_status/<int:pk>/', change_user_status, name='change_status'),
     path('post/new', PostCreateView.as_view(), name='post-create'),
-    # path('add/', CreateMemeView.as_view(), name='post'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     # REST FRAMEWORK URLS
     path('api/users/', include('users.api.urls', 'users_api')),

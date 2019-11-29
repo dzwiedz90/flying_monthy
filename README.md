@@ -27,6 +27,7 @@ Configuration before first run:
     - install modules from requirements.txt (pip3 install -r requirements.txt)
 - download master from repo
 - django migrations(python3 manage.py makemigrations, python3 manage.py migrate)
+- django create super user
 - migrate static files(python3 manage.py collectstatic)
 - run django server(python3 manage.py runserver)
 

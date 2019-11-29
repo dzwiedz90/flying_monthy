@@ -1,11 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from comments.models import Comments
 from posts.models import Post
+from comments.models import Comments
 from comments.serializers import GetAllCommentsSerializer, CreateCommentsSerializer, \
     UpdateCommentSerializer
 
@@ -82,6 +81,8 @@ def add_comment(request, pk):
             data = request.POST
             if data['content']:
                 Comments.objects.create(content=data.get('content'), author=request.user, meme=Post.objects.get(pk=pk))
+                return redirect(request.environ['HTTP_REFERER'])
+            else:
                 return redirect(request.environ['HTTP_REFERER'])
         else:
             return redirect(request.environ['HTTP_REFERER'])
