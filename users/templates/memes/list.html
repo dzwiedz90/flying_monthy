@@ -25,10 +25,32 @@
         {% for post in memes %}
         <h2>{{ post.title }}</h2>
         <h3>{{ post.author }}</h3>
-        <h4>{{ post.category}}, Creation date: {{ post.created_on}}</h4>
+        <h4>{{ post.category }}, Creation date: {{ post.created_on }}</h4>
         <a href="{% url 'post-detail' post.id %}"><img width="500" src="{{ post.cover.url}}" alt="{{ post.title }}"></a>
+        <table style="margin: 0px auto;">
+        <tr>
+            <th>
+                <form action="{% url 'like_post' %}" method="POST">
+                    {% csrf_token %}
+                        <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary"><div class="plus radius" style="--l:35px;--t:3px;--c2:green"></div></button>
+                </form>
+            </th>
+            <th>
+                <form action="{% url 'dislike_post' %}" method="POST">
+                    {% csrf_token %}
+                        <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary"><div class="minus radius" style="--l:35px;--t:3px;--c2:red"></div></button>
+                </form>
+            </th>
+        </tr>
+        <tr>
+            <th>{{ post.likes.count }}</th>
+            <th>{{ post.dislikes.count }}</th>
+        </tr>
+        </table>
         {% endfor %}
     </ul>
+
+
 
     <br>
     {% if memes.has_other_pages %}

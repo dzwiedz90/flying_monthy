@@ -9,6 +9,37 @@ from posts.models import Post
 from posts.serializers import GetAllMemesSerializer, CreateMemeSerializer, \
     UpdateMemeSerializer
 
+# like - imports
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
+
+@login_required()
+def like_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    if post.likes.filter(id=request.user.id).exists():
+        pass
+    elif post.dislikes.filter(id=request.user.id).exists():
+        post.dislikes.remove(request.user)
+        post.likes.add(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect(request.environ['HTTP_REFERER'])
+
+
+@login_required()
+def dislike_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    if post.dislikes.filter(id=request.user.id).exists():
+        pass
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        post.dislikes.add(request.user)
+    else:
+        post.dislikes.add(request.user)
+    return redirect(request.environ['HTTP_REFERER'])
+
 
 class List(ListView):
     model = Post
